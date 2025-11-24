@@ -19,11 +19,7 @@ export const createUser = async (userData) => {
     password: hashedPassword,
   });
 
-  return {
-    id: user._id,
-    name: user.name,
-    email: user.email,
-  };
+  return user;
 };
 
 export const findUserByEmail = async (email, withPassword = false) => {
@@ -44,9 +40,5 @@ export const getUserById = async (userId) => {
     error.status = 404;
     throw error;
   }
-  return {
-    id: user._id,
-    name: user.name,
-    email: user.email,
-  };
+  return user;
 };
