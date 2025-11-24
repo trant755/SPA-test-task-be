@@ -2,6 +2,7 @@ import {
   createUser,
   findUserByEmail,
   validatePassword,
+  getUserById,
 } from "../services/userService.js";
 import { generateToken } from "../services/tokenService.js";
 
@@ -30,8 +31,6 @@ const login = async (req, res) => {
     return res.status(401).json({ message: "Invalid email or password" });
   }
 
-  delete user.password;
-
   const token = generateToken({ id: user._id, email: user.email });
 
   res.status(200).json({
@@ -40,4 +39,9 @@ const login = async (req, res) => {
   });
 };
 
-export { register, login };
+const getMe = async (req, res) => {
+  const user = await getUserById(req.user.id);
+  res.status(200).json({ user });
+};
+
+export { register, login, getMe };
